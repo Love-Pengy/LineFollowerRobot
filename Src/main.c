@@ -5,7 +5,7 @@
 #define BUTTON_PIN 13
 
 int main(void){
-
+/*
 	System_Clock_Init(); // Switch System Clock = 80 MHz
 	
 	  // Enable the clock to GPIO Port B	
@@ -18,6 +18,6 @@ int main(void){
 		
 	GPIOB->ODR |= GPIO_ODR_ODR_2;
   // Dead loop & program hangs here
-	
+*/
 	while(1);
 }

@@ -14,13 +14,11 @@
 */
 
 
-
-int main (void){
-    System_Clock_Init();
-	
-	// Enable the clock to GPIO Port C
+void initMotor(void){
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
 	
+	//set MODER for pin 0 and 1 to output
+	GPIOC->MODER &= ~((0x3 << 2) | (0x3));
+	GPIOC->MODER |= (0x5);
 	
-    while(1);
 }
