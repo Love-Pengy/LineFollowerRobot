@@ -14,15 +14,27 @@
 			
 	NOTES:
 		https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/#stm32-pwm-example-led-dimmer
-		There are 8 timer registers that can be used (1-8)
+        TIMERS THAT SHOULD BE USED: 2, 3, 4, 5
+        Also can use 15, 16, 17 but use 2, 3, 4, 5 first these are the all purpose ones
+
 		relavent TIMER struct{
 			CCR1 -> start of pulse time
 			ARR -> end of pulse
 		}
 		Duty cycle (in percent) = CCR/ARR
 		Fpwm = (Fclk/((ARR + 1) * (PSC + 1)))
-		
+        PSC in this case will be 0 
+	    ARR can be set to 10 to give us 10 percent duty cycles	
 		80 Mhz
+        
+        sum: 
+            timer = PWM mode
+            prescaler = 0;
+            counter = up;
+            8 bit resolution 
+            (ARR of 255);
+            change CCR1 based on desired duty cycle
+            look at page 1071 for information on how to enable to registers for pwm mode
 		
 		*/
 
