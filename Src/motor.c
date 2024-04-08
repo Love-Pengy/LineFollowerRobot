@@ -49,18 +49,18 @@ static int MINDELAYVAL = 1000;
 //https://blog.embeddedexpert.io/?p=1400
 void initTimerLeft(void){
     //enable clock for TIM2
-    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
+    RCC->APB2ENR |= RCC_AHB2ENR_GPIOAEN;
 
     //set pin a0
-	GPIOA->CRL|=GPIO_CRL_MODE0;
-	GPIOA->CRL|=(GPIO_CRL_CNF0_1);
-	GPIOA->CRL&=~(GPIO_CRL_CNF0_0);
+	GPIOA->MODER |= 0x1;
+	GPIOA->PUPDR &= ~0xF;
+	GPIOA->PUPDR |= 0x0;
 
     //disable remapping for tim2
-	AFIO->MAPR&=~AFIO_MAPR_TIM2_REMAP;
+	//AFIO->MAPR&=~AFIO_MAPR_TIM2_REMAP;
 
     //Enable clock for timer2
-	RCC->APB1ENR|=RCC_APB1ENR_TIM2EN;
+	RCC->APB1ENR1 |= 1;
 
     //this max value is 65535
     //set auto reset value to max
@@ -69,17 +69,17 @@ void initTimerLeft(void){
     TIM2->PSC = 0;
 
     //set to pwm mode 1
-    TIM2->CCMR1|=TIM_CCMR1_OC1M_2|TIM_CCMR1_OC1M_1;
+    TIM2->CCMR1|= (TIM_CCMR1_OC1M_2|TIM_CCMR1_OC1M_1);
     
     //enable capture and compare register
-    TIM2->CCER|=TIM_CCER_CC1E;
+    TIM2->CCER |= TIM_CCER_CC1E;
 
     //turn on timer
-    TIM2->CR1|=TIM_CR1_CEN;
+    TIM2->CR1 |= TIM_CR1_CEN;
 
     //set initial duty cycle (this is just for testing atp)
     //this is duty cycle = CCR/ARR
-    TIM2->CCR1=2; 
+    TIM2->CCR1 = 2; 
 }
 
 /*

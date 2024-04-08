@@ -400,7 +400,7 @@
             <File>
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\motor.c</FilePath>
+              <FilePath>..\src\motor.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -420,7 +420,7 @@
             <File>
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\motor.h</FilePath>
+              <FilePath>..\include\motor.h</FilePath>
             </File>
           </Files>
         </Group>
