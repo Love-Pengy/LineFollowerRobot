@@ -14,6 +14,7 @@
 			
 	NOTES:
 		https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/#stm32-pwm-example-led-dimmer
+        16 bit gen purpose timers (2-5)
         TIMERS THAT SHOULD BE USED: 2, 3, 4, 5
         Also can use 15, 16, 17 but use 2, 3, 4, 5 first these are the all purpose ones
 
@@ -38,41 +39,50 @@
 		
 		*/
 
-//float randing from 0 - 1; 0 being off 1 being max speed
+//float ranging from 0 - 1; 0 being off 1 being max speed
 static float pwmRatio = 1;
 
 static int MINDELAYVAL = 1000;
 
 
 //https://community.st.com/t5/stm32-mcus-products/how-to-start-pwm-without-using-hal/td-p/84397
+//https://blog.embeddedexpert.io/?p=1400
 void initTimerLeft(void){
-    //enable clock, set to PWM mode
-    /*
-    enable GPIOx and TIMx clock in RCC
-    set the appropriate pin's GPIOx_MODER to AF, and GPIOx_AFR to appropriate value; set also GPIOx_OSPEEDR if there's a need for higher slew rates
-    set TIMx_CCMRx to set given channel to Output Compare, and one of the PWM modes
-    set TIMx_CCRx to set duty cycle
-    enable given channel in TIMx_CCER
-    in Advanced timers, set TIMx_BDTR.MOE
-    set TIMx_PSC/TIMx_ARR to set period
-    set TIMx_CR1.CEN to start timer's counter  
-    */ 
-    /*
     //enable clock for TIM2
-    RCC->APB1ENR1 |= (1<<0);
-    //set prescaler value for 1000hz (1ms)
-    TIM2->PSC = 80000 - 1;
+    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
+
+    //set pin a0
+	GPIOA->CRL|=GPIO_CRL_MODE0;
+	GPIOA->CRL|=(GPIO_CRL_CNF0_1);
+	GPIOA->CRL&=~(GPIO_CRL_CNF0_0);
+
+    //disable remapping for tim2
+	AFIO->MAPR&=~AFIO_MAPR_TIM2_REMAP;
+
+    //Enable clock for timer2
+	RCC->APB1ENR|=RCC_APB1ENR_TIM2EN;
+
+    //this max value is 65535
     //set auto reset value to max
-    TIM2->ARR = 0xFFFF;
-    //reset the counter registers 
-    TIM2->EGR |= (1<<0);
-    //reset the actual count value | this holds the amoutn of times reset
-    TIM2->CNT = 0x0;
-    //enable the timer 
-    TIM2->CR1 |= (1<<0);
-    */
+    //TIM2->ARR = 0xFFFF;
+    TIM2->ARR = 10;
+    TIM2->PSC = 0;
+
+    //set to pwm mode 1
+    TIM2->CCMR1|=TIM_CCMR1_OC1M_2|TIM_CCMR1_OC1M_1;
+    
+    //enable capture and compare register
+    TIM2->CCER|=TIM_CCER_CC1E;
+
+    //turn on timer
+    TIM2->CR1|=TIM_CR1_CEN;
+
+    //set initial duty cycle (this is just for testing atp)
+    //this is duty cycle = CCR/ARR
+    TIM2->CCR1=2; 
 }
 
+/*
 void initTimerRight(void){
     //enable clock for TIM2
     RCC->APB1ENR1 |= (1<<0);
@@ -87,7 +97,7 @@ void initTimerRight(void){
     //enable the timer 
     TIM2->CR1 |= (1<<0);
 }
-
+*/
 /*
 //delay assuming clock is set to 80 Mhz
 void updateMotorLeft(void){
