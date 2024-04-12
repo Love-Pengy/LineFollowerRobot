@@ -7,6 +7,10 @@
 
 int main(void){
     initMotors();
+<<<<<<< HEAD
+=======
+    setLeftPWM(.75);
+>>>>>>> 299e60b (more tentative additions)
 	while(1);
 	
 }

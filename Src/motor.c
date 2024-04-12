@@ -1,8 +1,12 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
 
+//left motor
 #define TIM2_PIN 0
+//right motor
 #define TIM3_PIN 7
+//ARR value
+#define MAX_COUNT 65535
 
 /*			
     PINS: 
@@ -40,13 +44,6 @@
 		
 		*/
 
-//float ranging from 0 - 1; 0 being off 1 being max speed
-static float pwmRatio = 1;
-
-static int MINDELAYVAL = 1000;
-
-
-
 void initMotorClocks(void){
     //init GPIO A and TIM2/TIM3
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
@@ -70,9 +67,20 @@ void initMotorPins(void){
     //set pin to no pupd
     GPIOA->PUPDR &= ~(0x3<<(2*TIM2_PIN));    
 
+
+    //TIM3 part 
+    GPIOA->AFR[0] &= ~(0xF<<(4*TIM3_PIN));
+    GPIOA->AFR[0] |= 1<<(4*TIM3_PIN);
+
+    //get gpio speed to fast 
+    GPIOA->OSPEEDR &= (0x2 << (2*TIM3_PIN)); 
+
+    //set pin to no pupd
+    GPIOA->PUPDR &= ~(0x3<<(2*TIM3_PIN));    
 }
 
 void initMotorTimers(void){
+    //TIM2 part >>>>>>
     //set to up counting
     TIM2->CR1 &= ~TIM_CR1_DIR;
 
@@ -80,10 +88,10 @@ void initMotorTimers(void){
     TIM2->PSC = 0;
 
     //set auto reload
-    TIM2->ARR = 65535;
+    TIM2->ARR = MAX_COUNT;
 
     //set initial duty cycle to 50%
-    TIM2->CCR1 = ((int)65535/2);
+    TIM2->CCR1 = ((int)MAX_COUNT/2);
 
     //clear current compare bits 
     TIM2->CCMR1 &= ~TIM_CCMR1_OC1M;
@@ -108,7 +116,11 @@ void initMotorTimers(void){
 
     //finally start the counter
     TIM2->CR1 |= TIM_CR1_CEN;
-
+    // ============  
+    
+    //TIM3 part >>>>>>>>>>>>>
+    
+    // ==============
 }
 
 void initMotors(void){
@@ -117,38 +129,10 @@ void initMotors(void){
     initMotorTimers();
 }
 
-/*
-//delay assuming clock is set to 80 Mhz
-void updateMotorLeft(void){
-    initTimer();
-	if(pwmRatio == 0){
-		//set motor to off and reset timer value
-	}
-	
-	
-	//while count is not greater than the delay val continue 
-	if(TIM2->CNT < (MINDELAYVAL/pwmRatio)){
-	
-	}
-	//if count is greater than delay val then swap 
-	
-    while(TIM2->CNT < timeInMs){
-    }
 
+void setLeftPWM(float pwm){
+    TIM2->CCR1 = (int)(MAX_COUNT * pwm);
 }
 
+void setRightPWM(float pwm);
 
-void initMotor(void){
-	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;
-	
-	//set MODER for pin 0 and 1 to output
-	GPIOC->MODER &= ~((0x3 << 2) | (0x3));
-	GPIOC->MODER |= (0x5);
-	
-	//set gpio speed to fast or w/e
-	GPIOC->OSPEEDR |= 0xF;
-
-	
-}
-
-*/
