@@ -1,17 +1,18 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
 
-/*
-	PINS: 
-        Lab: 
-            PC0 = A
-            PC1 = C
-            PC2 = B
-            PC3 = D
-        Project: 
-            PC0 = Right Motor 
-            PC1 = Left Motor
-			
+#define TIM2_PIN 0
+#define TIM3_PIN 7
+
+/*			
+    PINS: 
+        AF1 = 0001
+        AF2 = 0010
+        PA0 -> TIM2_CH1 -> AF1
+        PA7 -> TIM3_CH2 -> AF2
+        PB7 -> TIM4_CH2 -> AF2
+        PA1 -> TIM5_CH2 -> AF2
+        
 	NOTES:
 		https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/#stm32-pwm-example-led-dimmer
         16 bit gen purpose timers (2-5)
@@ -45,59 +46,77 @@ static float pwmRatio = 1;
 static int MINDELAYVAL = 1000;
 
 
-//https://community.st.com/t5/stm32-mcus-products/how-to-start-pwm-without-using-hal/td-p/84397
-//https://blog.embeddedexpert.io/?p=1400
-void initTimerLeft(void){
-    //enable clock for TIM2
-    RCC->APB2ENR |= RCC_AHB2ENR_GPIOAEN;
 
-    //set pin a0
-	GPIOA->MODER |= 0x1;
-	GPIOA->PUPDR &= ~0xF;
-	GPIOA->PUPDR |= 0x0;
+void initMotorClocks(void){
+    //init GPIO A and TIM2/TIM3
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM3EN;
+}
 
-    //disable remapping for tim2
-	//AFIO->MAPR&=~AFIO_MAPR_TIM2_REMAP;
+void initMotorPins(void){
+    //init pins PA0 and PA7 
+    //PA0 -> TIM2_CH1 -> AF1
+    //PA7 -> TIM3_CH2 -> AF2
+    //AFR[0] is for pins 0-7
 
-    //Enable clock for timer2
-	RCC->APB1ENR1 |= 1;
+    //TIM2 part
+    GPIOA->AFR[0] &= ~(0xF<<(4*TIM2_PIN));
+    GPIOA->AFR[0] |= 1<<(4*TIM2_PIN);
 
-    //this max value is 65535
-    //set auto reset value to max
-    //TIM2->ARR = 0xFFFF;
-    TIM2->ARR = 10;
+    //get gpio speed to fast 
+    GPIOA->OSPEEDR &= (0x2 << (2*TIM2_PIN)); 
+
+    //set pin to no pupd
+    GPIOA->PUPDR &= ~(0x3<<(2*TIM2_PIN));    
+
+}
+
+void initMotorTimers(void){
+    //set to up counting
+    TIM2->CR1 &= ~TIM_CR1_DIR;
+
+    //set prescaler 
     TIM2->PSC = 0;
 
-    //set to pwm mode 1
-    TIM2->CCMR1|= (TIM_CCMR1_OC1M_2|TIM_CCMR1_OC1M_1);
-    
-    //enable capture and compare register
+    //set auto reload
+    TIM2->ARR = 65535;
+
+    //set initial duty cycle to 50%
+    TIM2->CCR1 = ((int)65535/2);
+
+    //clear current compare bits 
+    TIM2->CCMR1 &= ~TIM_CCMR1_OC1M;
+
+    //set to PWM Mode 1 output on channel 1
+    TIM2->CCMR1 |= TIM_CCMR1_OC1M_1;
+
+    //enable preload for output 1
+    TIM2->CCMR1 |= TIM_CCMR1_OC1PE;
+
+
+    //select output polarity 0 = active high 1 = active low
+    TIM2->CCER &= ~TIM_CCER_CC1P;
+
+
+    //enable output of ch1
     TIM2->CCER |= TIM_CCER_CC1E;
 
-    //turn on timer
+
+    //main output enable 
+    TIM2->BDTR |= TIM_BDTR_MOE;
+
+    //finally start the counter
     TIM2->CR1 |= TIM_CR1_CEN;
 
-    //set initial duty cycle (this is just for testing atp)
-    //this is duty cycle = CCR/ARR
-    TIM2->CCR1 = 2; 
 }
 
-/*
-void initTimerRight(void){
-    //enable clock for TIM2
-    RCC->APB1ENR1 |= (1<<0);
-    //set prescaler value for 1000hz (1ms)
-    TIM2->PSC = 80000 - 1;
-    //set auto reset value to max
-    TIM2->ARR = 0xFFFF;
-    //reset the counter registers 
-    TIM2->EGR |= (1<<0);
-    //reset the actual count value | this holds the amoutn of times reset
-    TIM2->CNT = 0x0;
-    //enable the timer 
-    TIM2->CR1 |= (1<<0);
+void initMotors(void){
+    initMotorClocks();
+    initMotorPins();
+    initMotorTimers();
 }
-*/
+
 /*
 //delay assuming clock is set to 80 Mhz
 void updateMotorLeft(void){

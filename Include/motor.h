@@ -1,6 +1,6 @@
 #ifndef MOTOR
 #define MOTOR
 
-void initMotor(void);
+void initMotors(void);
 
 #endif
