@@ -4,10 +4,12 @@
 
 #define LED_PIN    5
 #define BUTTON_PIN 13
-
+volatile int d;
 int main(void){
-    initMotors();
-    setLeftPWM(.75);
+    
+	initMotors();
+	setLeftPWM(.19);
+
+	d = 0;
 	while(1);
-	
 }

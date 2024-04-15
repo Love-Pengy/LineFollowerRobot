@@ -6,7 +6,7 @@
 //right motor
 #define TIM3_PIN 7
 //ARR value
-#define MAX_COUNT 65535
+#define MAX_COUNT 199
 
 /*			
     PINS: 
@@ -14,7 +14,7 @@
         AF2 = 0010
         PA0 -> TIM2_CH1 -> AF1
         PA7 -> TIM3_CH2 -> AF2
-        PB7 -> TIM4_CH2 -> AF2
+        PB9 -> TIM4_CH2 -> AF2
         PA1 -> TIM5_CH2 -> AF2
         
 	NOTES:
@@ -47,75 +47,52 @@
 void initMotorClocks(void){
     //init GPIO A and TIM2/TIM3
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM3EN;
+	RCC->AHB2ENR |=  RCC_AHB2ENR_GPIOBEN;
 }
 
 void initMotorPins(void){
     //init pins PA0 and PA7 
-    //PA0 -> TIM2_CH1 -> AF1
+    //PB9 -> TIM4_CH1 -> AF2
     //PA7 -> TIM3_CH2 -> AF2
     //AFR[0] is for pins 0-7
-
-    //TIM2 part
-    GPIOA->AFR[0] &= ~(0xF<<(4*TIM2_PIN));
-    GPIOA->AFR[0] |= 1<<(4*TIM2_PIN);
-
-    //get gpio speed to fast 
-    GPIOA->OSPEEDR &= (0x2 << (2*TIM2_PIN)); 
-
-    //set pin to no pupd
-    GPIOA->PUPDR &= ~(0x3<<(2*TIM2_PIN));    
-
-
-    //TIM3 part 
-    GPIOA->AFR[0] &= ~(0xF<<(4*TIM3_PIN));
-    GPIOA->AFR[0] |= 1<<(4*TIM3_PIN);
-
-    //get gpio speed to fast 
-    GPIOA->OSPEEDR &= (0x2 << (2*TIM3_PIN)); 
-
-    //set pin to no pupd
-    GPIOA->PUPDR &= ~(0x3<<(2*TIM3_PIN));    
+	
+	//PIN PB9
+	GPIOB->MODER &= ~(0x03 << (2*9));
+	GPIOB->MODER |= 0x02 << (2*9);
+	GPIOB->AFR[1] |= 0x2<<(4);
+	GPIOB->OSPEEDR |= 0x03<<(2*9);
+	GPIOB->OTYPER &= ~(1<<9);
+	GPIOB->PUPDR &= ~(0x03<<(2*9));
+	
+   
 }
 
 void initMotorTimers(void){
     //TIM2 part >>>>>>
     //set to up counting
-    TIM2->CR1 &= ~TIM_CR1_DIR;
-
-    //set prescaler 
-    TIM2->PSC = 0;
-
-    //set auto reload
-    TIM2->ARR = MAX_COUNT;
-
-    //set initial duty cycle to 50%
-    TIM2->CCR1 = ((int)MAX_COUNT/2);
-
-    //clear current compare bits 
-    TIM2->CCMR1 &= ~TIM_CCMR1_OC1M;
-
-    //set to PWM Mode 1 output on channel 1
-    TIM2->CCMR1 |= TIM_CCMR1_OC1M_1;
-
-    //enable preload for output 1
-    TIM2->CCMR1 |= TIM_CCMR1_OC1PE;
-
-
-    //select output polarity 0 = active high 1 = active low
-    TIM2->CCER &= ~TIM_CCER_CC1P;
-
-
-    //enable output of ch1
-    TIM2->CCER |= TIM_CCER_CC1E;
-
-
-    //main output enable 
-    TIM2->BDTR |= TIM_BDTR_MOE;
-
-    //finally start the counter
-    TIM2->CR1 |= TIM_CR1_CEN;
+	
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
+	TIM4->PSC = 63;
+	TIM4->ARR = MAX_COUNT;
+	TIM4->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
+	//enable preload
+	TIM4->CCMR2 |= TIM_CCMR2_OC4PE;
+	//auto preload
+	TIM4->CR1 |= TIM_CR1_ARPE; 
+	//upcounting
+	TIM4->CR1 &= ~TIM_CR1_DIR;
+	//enable capture/compare register
+	TIM4->CCER |= TIM_CCER_CC4E;
+	TIM4->EGR |= TIM_EGR_UG;
+	//clear interrupt flag
+	TIM4->SR &= ~TIM_SR_UIF;
+	
+	TIM4->DIER |= TIM_DIER_UIE;
+	//enable the counter
+	TIM4->CR1 = TIM_CR1_CEN;
+	//default pwm value
+	TIM4->CCR4 = 50; 
+	
     // ============  
     
     //TIM3 part >>>>>>>>>>>>>
@@ -131,7 +108,13 @@ void initMotors(void){
 
 
 void setLeftPWM(float pwm){
-    TIM2->CCR1 = (int)(MAX_COUNT * pwm);
+	int val = (int)(MAX_COUNT * pwm);
+	if(val < 38){
+		TIM4->CCR4 = 38;
+	}
+	else{
+		TIM4->CCR4 = val;
+	}
 }
 
 void setRightPWM(float pwm);
