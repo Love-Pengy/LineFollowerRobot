@@ -15,7 +15,9 @@
         PA0 -> TIM2_CH1 -> AF1
         PA7 -> TIM3_CH2 -> AF2
         PB9 -> TIM4_CH2 -> AF2
+				PB8 -> TTIM4_CH2 -> AF2
         PA1 -> TIM5_CH2 -> AF2
+		
         
 	NOTES:
 		https://deepbluembedded.com/stm32-pwm-example-timer-pwm-mode-tutorial/#stm32-pwm-example-led-dimmer
@@ -46,7 +48,7 @@
 
 void initMotorClocks(void){
     //init GPIO A and TIM2/TIM3
-    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 	RCC->AHB2ENR |=  RCC_AHB2ENR_GPIOBEN;
 }
 
@@ -64,6 +66,8 @@ void initMotorPins(void){
 	GPIOB->OTYPER &= ~(1<<9);
 	GPIOB->PUPDR &= ~(0x03<<(2*9));
 	
+	//PIN PB8
+	
    
 }
 
@@ -71,7 +75,7 @@ void initMotorTimers(void){
     //TIM2 part >>>>>>
     //set to up counting
 	
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
+  RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
 	TIM4->PSC = 63;
 	TIM4->ARR = MAX_COUNT;
 	TIM4->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
