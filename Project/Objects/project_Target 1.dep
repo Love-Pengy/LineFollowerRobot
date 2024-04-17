@@ -1,6 +1,6 @@
 Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (..\Src\main.c)(0x661D63EC)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\Src\main.c)(0x661FD5CA)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\Src\../Include/stm32l476xx.h)(0x660D9E5E)
 I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D264786)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B88E8)
@@ -10,7 +10,7 @@ I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D264786
 I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9004A4)
 I (C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include\system_stm32l4xx.h)(0x56D449DC)
 I (..\Src\../Include/SysClock.h)(0x660D9E5E)
-I (..\Src\../Include/motor.h)(0x661D57B3)
+I (..\Src\../Include/motor.h)(0x661FD6E8)
 F (..\Src\SysClock.c)(0x660DA072)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\sysclock.o --omf_browse .\objects\sysclock.crf --depend .\objects\sysclock.d)
 I (..\Src\../Include/SysClock.h)(0x660D9E5E)
 I (..\Src\../Include/stm32l476xx.h)(0x660D9E5E)
@@ -22,7 +22,7 @@ I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D264786
 I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9004A4)
 I (C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include\system_stm32l4xx.h)(0x56D449DC)
 F (..\Src\startup_stm32l476xx.s)(0x660D9E5E)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "STM32L476xx SETA 1"--list .\listings\startup_stm32l476xx.lst --xref -o .\objects\startup_stm32l476xx.o --depend .\objects\startup_stm32l476xx.d)
-F (..\src\motor.c)(0x661D6342)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+F (..\src\motor.c)(0x661FD4F8)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
 I (..\src\../Include/stm32l476xx.h)(0x660D9E5E)
 I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D264786)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B88E8)
@@ -32,6 +32,18 @@ I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D264786
 I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9004A4)
 I (C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include\system_stm32l4xx.h)(0x56D449DC)
 I (..\src\../Include/SysClock.h)(0x660D9E5E)
+I (..\src\../Include/globals.h)(0x661FD6C9)
+F (..\Src\delay.c)(0x661FD862)(-c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include-IC:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32L476xx-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
+I (..\Src\../Include/stm32l476xx.h)(0x660D9E5E)
+I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D264786)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B88E8)
+I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D264786)
+I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D264786)
+I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D264786)
+I (C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C9004A4)
+I (C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include\system_stm32l4xx.h)(0x56D449DC)
 F (..\Include\stm32l476xx.h)(0x660D9E5E)()
 F (..\Include\SysClock.h)(0x660D9E5E)()
-F (..\include\motor.h)(0x661D57B3)()
+F (..\include\motor.h)(0x661FD6E8)()
+F (..\Include\globals.h)(0x661FD6C9)()
+F (..\Include\delay.h)(0x661FD6EE)()

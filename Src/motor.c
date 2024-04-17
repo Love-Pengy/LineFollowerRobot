@@ -1,10 +1,7 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
+#include "../Include/globals.h"
 
-//left motor
-#define TIM2_PIN 0
-//right motor
-#define TIM3_PIN 7
 //ARR value
 #define MAX_COUNT 199
 
@@ -15,7 +12,6 @@
         PA0 -> TIM2_CH1 -> AF1
         PA7 -> TIM3_CH2 -> AF2
         PB9 -> TIM4_CH2 -> AF2
-				PB8 -> TTIM4_CH2 -> AF2
         PA1 -> TIM5_CH2 -> AF2
 		
         
@@ -47,9 +43,9 @@
 		*/
 
 void initMotorClocks(void){
-    //init GPIO A and TIM2/TIM3
+   //init GPIO A and B 
    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
-	RCC->AHB2ENR |=  RCC_AHB2ENR_GPIOBEN;
+   RCC->AHB2ENR |=  RCC_AHB2ENR_GPIOBEN;
 }
 
 void initMotorPins(void){
@@ -59,23 +55,26 @@ void initMotorPins(void){
     //AFR[0] is for pins 0-7
 	
 	//PIN PB9
-	GPIOB->MODER &= ~(0x03 << (2*9));
-	GPIOB->MODER |= 0x02 << (2*9);
+	GPIOB->MODER &= ~(0x03 << (2*TIM4_PIN));
+	GPIOB->MODER |= 0x02 << (2*TIM4_PIN);
 	GPIOB->AFR[1] |= 0x2<<(4);
-	GPIOB->OSPEEDR |= 0x03<<(2*9);
+	GPIOB->OSPEEDR |= 0x03<<(2*TIM4_PIN);
 	GPIOB->OTYPER &= ~(1<<9);
-	GPIOB->PUPDR &= ~(0x03<<(2*9));
+	GPIOB->PUPDR &= ~(0x03<<(2*TIM4_PIN));
 	
-	//PIN PB8
-	
+	//PIN PA7
+	GPIOB->MODER &= ~(0x03 << (2*TIM3_PIN));
+	GPIOB->MODER |= 0x02 << (2*TIM3_PIN);
+	GPIOB->AFR[0] |= 0x2<<(4);
+	GPIOB->OSPEEDR |= 0x03<<(2*TIM3_PIN);
+	GPIOB->OTYPER &= ~(1<<9);
+	GPIOB->PUPDR &= ~(0x03<<(2*TIM3_PIN));
    
 }
 
 void initMotorTimers(void){
-    //TIM2 part >>>>>>
-    //set to up counting
-	
-  RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
+    //TIM4 part >>>>>>
+	RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
 	TIM4->PSC = 63;
 	TIM4->ARR = MAX_COUNT;
 	TIM4->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
@@ -100,7 +99,28 @@ void initMotorTimers(void){
     // ============  
     
     //TIM3 part >>>>>>>>>>>>>
-    
+    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
+	TIM3->PSC = 63;
+	TIM3->ARR = MAX_COUNT;
+	TIM3->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
+	//enable preload
+	TIM3->CCMR2 |= TIM_CCMR2_OC4PE;
+	//auto preload
+	TIM3->CR1 |= TIM_CR1_ARPE; 
+	//upcounting
+	TIM3->CR1 &= ~TIM_CR1_DIR;
+	//enable capture/compare register
+	TIM3->CCER |= TIM_CCER_CC4E;
+	TIM3->EGR |= TIM_EGR_UG;
+	//clear interrupt flag
+	TIM3->SR &= ~TIM_SR_UIF;
+	
+	TIM3->DIER |= TIM_DIER_UIE;
+	//enable the counter
+	TIM3->CR1 = TIM_CR1_CEN;
+	//default pwm value
+	TIM3->CCR4 = 50; 
+	
     // ==============
 }
 
@@ -113,7 +133,7 @@ void initMotors(void){
 
 void setLeftPWM(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
-	if(val < 38){
+	if((val < 38) && (val != 0)){
 		TIM4->CCR4 = 38;
 	}
 	else{
@@ -121,5 +141,13 @@ void setLeftPWM(float pwm){
 	}
 }
 
-void setRightPWM(float pwm);
+void setRightPWM(float pwm){
+	int val = (int)(MAX_COUNT * pwm);
+	if((val < 38) && (val != 0)){
+		TIM3->CCR4 = 38;
+	}
+	else{
+		TIM3->CCR4 = val;
+	}
+}
 

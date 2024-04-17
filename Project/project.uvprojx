@@ -402,6 +402,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\motor.c</FilePath>
             </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -421,6 +426,16 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\include\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>globals.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Include\globals.h</FilePath>
+            </File>
+            <File>
+              <FileName>delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Include\delay.h</FilePath>
             </File>
           </Files>
         </Group>
