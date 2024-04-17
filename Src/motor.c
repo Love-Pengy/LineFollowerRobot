@@ -63,12 +63,12 @@ void initMotorPins(void){
 	GPIOB->PUPDR &= ~(0x03<<(2*TIM4_PIN));
 	
 	//PIN PA7
-	GPIOB->MODER &= ~(0x03 << (2*TIM3_PIN));
-	GPIOB->MODER |= 0x02 << (2*TIM3_PIN);
-	GPIOB->AFR[0] |= 0x2<<(4);
-	GPIOB->OSPEEDR |= 0x03<<(2*TIM3_PIN);
-	GPIOB->OTYPER &= ~(1<<9);
-	GPIOB->PUPDR &= ~(0x03<<(2*TIM3_PIN));
+	GPIOA->MODER &= ~(0x03 << (2*TIM3_PIN));
+	GPIOA->MODER |= 0x02 << (2*TIM3_PIN);
+	GPIOA->AFR[0] |= 0x2<<(4);
+	GPIOA->OSPEEDR |= 0x03<<(2*TIM3_PIN);
+	GPIOA->OTYPER &= ~(1<<9);
+	GPIOA->PUPDR &= ~(0x03<<(2*TIM3_PIN));
    
 }
 
@@ -94,12 +94,12 @@ void initMotorTimers(void){
 	//enable the counter
 	TIM4->CR1 = TIM_CR1_CEN;
 	//default pwm value
-	TIM4->CCR4 = 50; 
+	TIM4->CCR4 = 0; 
 	
     // ============  
     
     //TIM3 part >>>>>>>>>>>>>
-    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
+   RCC->APB1ENR1 |= RCC_APB1ENR1_TIM3EN;
 	TIM3->PSC = 63;
 	TIM3->ARR = MAX_COUNT;
 	TIM3->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
@@ -119,7 +119,7 @@ void initMotorTimers(void){
 	//enable the counter
 	TIM3->CR1 = TIM_CR1_CEN;
 	//default pwm value
-	TIM3->CCR4 = 50; 
+	TIM3->CCR4 = 0; 
 	
     // ==============
 }
