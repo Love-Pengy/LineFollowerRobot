@@ -2,6 +2,5 @@
 #define DELAY_H
 
 void delay(int);
-void initTimer(void);
 
 #endif
