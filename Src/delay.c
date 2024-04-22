@@ -15,7 +15,7 @@ void initTimer(void){
     TIM2->CR1 |= (1<<0);
 }
 //delay assuming clock is set to 80 Mhz
-void delay(int timeInMs){
+void delayMs(int timeInMs){
     initTimer();
     while(TIM2->CNT < timeInMs){
     }

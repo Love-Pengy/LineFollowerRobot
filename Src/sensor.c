@@ -43,7 +43,19 @@ void initSensors(void){
 	timeCounter = 0;
 	
 	//let capacitor charge
-	delay(1);
+	delayMs(1);
+}
+
+void chargeSensorLeft(void){
+	GPIOC->MODER &= ~(0x3 << (2*LEFT_SENSOR_PIN));
+	GPIOC->MODER |= (0x1 << (2*LEFT_SENSOR_PIN));
+	GPIOC->ODR |= (0x1 << LEFT_SENSOR_PIN);
+}
+
+void chargeSensorRight(void){
+	GPIOC->MODER &= ~(0x3 << (2*RIGHT_SENSOR_PIN));
+	GPIOC->MODER |= (0x1 << (2*RIGHT_SENSOR_PIN));
+	GPIOC->ODR |= (0x1 << RIGHT_SENSOR_PIN);
 }
 
 /*
@@ -60,6 +72,8 @@ Otherwise, the surface is white.
 //returns 0 for black 1 for white 
 int pulseLeftSensor(void){
 	timeCounter = 0;
+	
+	chargeSensorLeft();
 	
 	//set to input
 	GPIOC->MODER &= ~(0x3 << (2*LEFT_SENSOR_PIN));
@@ -78,6 +92,8 @@ int pulseLeftSensor(void){
 
 int pulseRightSensor(void){
 	timeCounter = 0;
+	
+	chargeSensorRight();
 	
 	//set to input
 	GPIOC->MODER &= ~(0x3 << (2*RIGHT_SENSOR_PIN));

@@ -22,50 +22,51 @@ Dialog DLL:      TCM.DLL V1.36.5.0
  
 <h2>Project:</h2>
 H:\LineFollowerRobot\Project\project.uvprojx
-Project File Date:  04/19/2024
+Project File Date:  04/22/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32l476xx.s...
-compiling oled.c...
-..\Src\oled.c(4): error:  #5: cannot open source input file "../Lib/I2C.h": No such file or directory
-  #include "../Lib/I2C.h"
-..\Src\oled.c: 0 warnings, 1 error
 compiling ssd1306_fonts.c...
-compiling main.c...
-compiling delay.c...
-compiling sensor.c...
 compiling SysClock.c...
-compiling motor.c...
+compiling main.c...
 compiling I2C.c...
+compiling delay.c...
+compiling motor.c...
+compiling sensor.c...
+compiling oled.c...
 compiling ssd1306_tests.c...
 compiling ssd1306.c...
-".\Objects\project.axf" - 1 Error(s), 0 Warning(s).
+linking...
+.\Objects\project.axf: Warning: L6989W: Could not apply patch sdcomp-29491-629360 to instruction VPOP     {d8-d12} at offset 0x24, instruction is within an IT block and is not the last instruction for sin_i_x.o(i.____kernel_sin$lsc).
+Program Size: Code=980 RO-data=408 RW-data=0 ZI-data=1632  
+Finished: 0 information, 1 warning and 0 error messages.
+FromELF: creating hex file...
+".\Objects\project.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
-                ARM.CMSIS.5.9.0
-                CMSIS (Common Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.6.0
+                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
+                ARM.CMSIS.5.6.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.3.0
 
 Package Vendor: Keil
-                https://www.keil.com/pack/Keil.STM32L4xx_DFP.2.6.2.pack
-                Keil.STM32L4xx_DFP.2.6.2
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.1.2.0.pack
+                Keil.STM32L4xx_DFP.1.2.0
                 STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_Target_1
-  C:\Keil_v5\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
-  C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\2.6.2\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+  C:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include
+  C:\Keil_v5\Packs\Keil\STM32L4xx_DFP\1.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.6.0
-Target not created.
-Build Time Elapsed:  00:00:01
+   * Component: ARM::CMSIS:CORE:5.3.0
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

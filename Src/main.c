@@ -8,6 +8,6 @@ volatile int d;
 int main(void){
   
 	initMotors();
-	d = 0;
+	setLeftPWM(1);
 	while(1);
 }

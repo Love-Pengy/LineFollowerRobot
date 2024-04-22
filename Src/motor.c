@@ -12,32 +12,33 @@ void initMotorClocks(void){
 }
 
 void initMotorPins(void){
-    //init pins PA0 and PA7 
-    //PB9 -> TIM4_CH1 -> AF2
-    //PA7 -> TIM3_CH2 -> AF2
-    //AFR[0] is for pins 0-7
+	//init pins PA0 and PA7 
+	//PB9 -> TIM4_CH1 -> AF2
+	//PA7 -> TIM3_CH2 -> AF2
+	//AFR[0] is for pins 0-7
 	
 	//PIN PB9
 	GPIOB->MODER &= ~(0x03 << (2*TIM4_PIN));
 	GPIOB->MODER |= 0x02 << (2*TIM4_PIN);
 	GPIOB->AFR[1] |= 0x2<<(4);
 	GPIOB->OSPEEDR |= 0x03<<(2*TIM4_PIN);
-	GPIOB->OTYPER &= ~(1<<9);
+	GPIOB->OTYPER &= ~(1<<TIM4_PIN);
 	GPIOB->PUPDR &= ~(0x03<<(2*TIM4_PIN));
 	
 	//PIN PA7
 	GPIOA->MODER &= ~(0x03 << (2*TIM3_PIN));
 	GPIOA->MODER |= 0x02 << (2*TIM3_PIN);
+	///////////////////
 	GPIOA->AFR[0] |= 0x2<<(4);
 	GPIOA->OSPEEDR |= 0x03<<(2*TIM3_PIN);
-	GPIOA->OTYPER &= ~(1<<9);
+	GPIOA->OTYPER &= ~(1<<TIM3_PIN);
 	GPIOA->PUPDR &= ~(0x03<<(2*TIM3_PIN));
    
 }
 
 void initMotorTimers(void){
-  //TIM4 part >>>>>>
 	
+  //TIM4 part >>>>>>
 	RCC->APB1ENR1 |= RCC_APB1ENR1_TIM4EN;
 	TIM4->PSC = 63;
 	TIM4->ARR = MAX_COUNT;
@@ -97,6 +98,7 @@ void initMotors(void){
 
 
 void setLeftPWM(float pwm){
+	
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM4->CCR4 = 38;
@@ -107,6 +109,7 @@ void setLeftPWM(float pwm){
 }
 
 void setRightPWM(float pwm){
+	
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM3->CCR4 = 38;

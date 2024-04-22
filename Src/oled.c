@@ -1,9 +1,9 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
 #include "../Include/globals.h"
-#include "../Lib/ssd1306.h"
-#include "../Lib/ssd1306_tests.h"
-#include "../Lib/I2C.h"
+#include "../Lib/OLED/ssd1306.h"
+#include "../Lib/OLED/ssd1306_tests.h"
+#include "../Lib/OLED/I2C.h"
 
 void initOled(void){
 	I2C_GPIO_init();
