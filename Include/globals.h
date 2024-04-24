@@ -13,8 +13,8 @@
 	#define DELAY_VAL 100
 
 //pin defs
-	//right motor PA7 
-	#define TIM3_PIN 7
+	//right motor PA3 
+	#define TIM5_PIN 3
 	
 	//left motor PB9
 	#define TIM4_PIN 9

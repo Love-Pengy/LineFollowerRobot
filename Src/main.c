@@ -18,6 +18,9 @@ int main(void){
 	leftSensorVal = 0;
 	
 	while(1){
+		//setLeftPWM(.5);
+		//setRightPWM(0);
+		/*
 		rightSensorVal = pulseRightSensor();
 		leftSensorVal = pulseLeftSensor();
 		//if both black or both white go forward
@@ -45,6 +48,9 @@ int main(void){
 		}	
 		
 	}
+	*/
+}
 	
 }
+
 
