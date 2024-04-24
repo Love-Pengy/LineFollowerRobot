@@ -8,6 +8,9 @@
 
 	//this must be calibrated 
 	#define SENSOR_PULSE_THRESHOLD 1000
+	
+	//delay between motor pulses
+	#define DELAY_VAL 100
 
 //pin defs
 	//right motor PA7 

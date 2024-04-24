@@ -1,13 +1,50 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
 #include "../Include/motor.h"
+#include "../Include/sensor.h"
+#include "../Include/delay.h"
+#include "../Include/globals.h"
 
-#define LED_PIN    5
-#define BUTTON_PIN 13
 volatile int d;
+volatile int rightSensorVal;
+volatile int leftSensorVal;
 int main(void){
   
 	initMotors();
-	setLeftPWM(1);
-	while(1);
+	initSensors();
+	setLeftPWM(0);
+	setRightPWM(0);
+	rightSensorVal = 0;
+	leftSensorVal = 0;
+	
+	while(1){
+		rightSensorVal = pulseRightSensor();
+		leftSensorVal = pulseLeftSensor();
+		//if both black or both white go forward
+		if((!(rightSensorVal && leftSensorVal)) || (rightSensorVal && leftSensorVal)){
+			setLeftPWM(1);
+			setRightPWM(1);
+			delayMs(DELAY_VAL);
+			setLeftPWM(0);
+			setRightPWM(0);
+		}
+		//if black on left
+		else if(!leftSensorVal && rightSensorVal){
+			setRightPWM(1);
+			delayMs(DELAY_VAL);
+			setRightPWM(0);
+		}
+		//if black on right
+		else if(leftSensorVal && !rightSensorVal){
+			setLeftPWM(1);
+			delayMs(DELAY_VAL);
+			setLeftPWM(0);
+		}
+		else{
+			//error
+		}	
+		
+	}
+	
 }
+
