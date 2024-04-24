@@ -1,6 +1,6 @@
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
-#include "../Include/motor.h"
+#include "../Include/motor2.h"
 #include "../Include/sensor.h"
 #include "../Include/delay.h"
 #include "../Include/globals.h"
@@ -8,16 +8,15 @@
 volatile int d;
 volatile int rightSensorVal;
 volatile int leftSensorVal;
+volatile int i;
 int main(void){
   
-	initMotors();
-	initSensors();
-	setLeftPWM(0);
-	setRightPWM(0);
+	//initMotors();
+	//initSensors();
 	rightSensorVal = 0;
 	leftSensorVal = 0;
 	
-	while(1){
+	while(1);
 		//setLeftPWM(.5);
 		//setRightPWM(0);
 		/*
@@ -49,7 +48,6 @@ int main(void){
 		
 	}
 	*/
-}
 	
 }
 

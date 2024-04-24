@@ -1,3 +1,4 @@
+/*
 #include "../Include/stm32l476xx.h"
 #include "../Include/SysClock.h"
 #include "../Include/globals.h"
@@ -116,4 +117,4 @@ void setRightPWM(float pwm){
 		TIM5->CCR4 = val;
 	}
 }
-
+*/
