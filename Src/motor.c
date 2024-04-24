@@ -77,7 +77,7 @@ void initMotorTimers(void){
 	//upcounting
 	TIM3->CR1 &= ~TIM_CR1_DIR;
 	//enable capture/compare register
-	TIM3->CCER |= TIM_CCER_CC4E;
+	TIM3->CCER |= TIM_CCER_CC2E;
 	TIM3->EGR |= TIM_EGR_UG;
 	//clear interrupt flag
 	TIM3->SR &= ~TIM_SR_UIF;
