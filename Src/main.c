@@ -21,7 +21,7 @@ int main(void){
 		rightSensorVal = pulseRightSensor();
 		leftSensorVal = pulseLeftSensor();
 		//if both black or both white go forward
-		if((!(rightSensorVal && leftSensorVal)) || (rightSensorVal && leftSensorVal)){
+		if((!rightSensorVal && !leftSensorVal) || (rightSensorVal && leftSensorVal)){
 			setLeftPWM(1);
 			setRightPWM(1);
 			delayMs(DELAY_VAL);
