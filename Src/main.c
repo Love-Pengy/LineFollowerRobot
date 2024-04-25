@@ -18,20 +18,7 @@ int main(void){
 		leftSensorVal = pulseLeftSensor();
 		rightSensorVal = pulseRightSensor();	
 			
-		if(!leftSensorVal){
-			setLeftPWM(1);
-		}
-		else{
-			setLeftPWM(0);
-		}
 		
-		if(!rightSensorVal){
-			setRightPWM(1);
-		}
-		else{
-			setRightPWM(0);
-		}
-			
 		//if both black or both white go forward
 		/*if((!rightSensorVal && !leftSensorVal) || (rightSensorVal && leftSensorVal)){
 			setLeftPWM(1);
@@ -39,14 +26,16 @@ int main(void){
 			delayMs(DELAY_VAL);
 			setLeftPWM(0);
 			setRightPWM(0);
-		}
+		}*/
+			
 		//if black on left
-		else if(!leftSensorVal && rightSensorVal){
+		 if(!leftSensorVal && rightSensorVal){
 			setRightPWM(1);
 			delayMs(DELAY_VAL);
 			setRightPWM(0);
 		}
 		//if black on right
+		/*
 		else if(leftSensorVal && !rightSensorVal){
 			setLeftPWM(1);
 			delayMs(DELAY_VAL);
@@ -54,8 +43,8 @@ int main(void){
 		}
 		else{
 			//error
-		}	*/
-		
+		}	
+		*/
 		}
 	}
 
