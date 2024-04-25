@@ -11,17 +11,20 @@ volatile int i;
 int main(void){
   
 	initMotors();
-	setLeftPWM(0.5);
-	setRightPWM(1);
 	
-	while(1);
-		//setLeftPWM(.5);
-		//setRightPWM(0);
-		/*
+		while(1){
 		rightSensorVal = pulseRightSensor();
 		leftSensorVal = pulseLeftSensor();
+			
+		if(!leftSensorVal){
+			setLeftPWM(0);
+		}
+		else{
+			setLeftPWM(1);
+		}
+			
 		//if both black or both white go forward
-		if((!rightSensorVal && !leftSensorVal) || (rightSensorVal && leftSensorVal)){
+		/*if((!rightSensorVal && !leftSensorVal) || (rightSensorVal && leftSensorVal)){
 			setLeftPWM(1);
 			setRightPWM(1);
 			delayMs(DELAY_VAL);
@@ -42,11 +45,9 @@ int main(void){
 		}
 		else{
 			//error
-		}	
+		}	*/
 		
+		}
 	}
-	*/
-	
-}
 
 
