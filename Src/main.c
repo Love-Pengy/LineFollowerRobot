@@ -16,12 +16,20 @@ int main(void){
 		while(1){
 
 		leftSensorVal = pulseLeftSensor();
+		rightSensorVal = pulseRightSensor();	
 			
 		if(!leftSensorVal){
-			setLeftPWM(0);
+			setLeftPWM(1);
 		}
 		else{
-			setLeftPWM(1);
+			setLeftPWM(0);
+		}
+		
+		if(!rightSensorVal){
+			setRightPWM(1);
+		}
+		else{
+			setRightPWM(0);
 		}
 			
 		//if both black or both white go forward

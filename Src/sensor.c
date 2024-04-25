@@ -83,7 +83,7 @@ int pulseLeftSensor(void){
 		timeCounter++;
 	}
 	
-	if(timeCounter > SENSOR_PULSE_THRESHOLD){
+	if(timeCounter > SENSOR_PULSE_THRESHOLD_LEFT){
 		return(0);
 	}
 	
@@ -103,7 +103,7 @@ int pulseRightSensor(void){
 		timeCounter++;
 	}
 	
-	if(timeCounter > SENSOR_PULSE_THRESHOLD){
+	if(timeCounter > SENSOR_PULSE_THRESHOLD_RIGHT){
 		return(0);
 	}
 	
