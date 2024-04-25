@@ -11,9 +11,10 @@ volatile int i;
 int main(void){
   
 	initMotors();
+	initSensors();
 	
 		while(1){
-		rightSensorVal = pulseRightSensor();
+
 		leftSensorVal = pulseLeftSensor();
 			
 		if(!leftSensorVal){
