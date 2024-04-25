@@ -417,11 +417,6 @@
               <FileType>1</FileType>
               <FilePath>..\Src\oled.c</FilePath>
             </File>
-            <File>
-              <FileName>motor2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\motor2.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -461,11 +456,6 @@
               <FileName>oled.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Include\oled.h</FilePath>
-            </File>
-            <File>
-              <FileName>motor2.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Include\motor2.h</FilePath>
             </File>
           </Files>
         </Group>

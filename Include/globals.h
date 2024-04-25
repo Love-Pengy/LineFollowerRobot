@@ -10,11 +10,11 @@
 	#define SENSOR_PULSE_THRESHOLD 1000
 	
 	//delay between motor pulses
-	#define DELAY_VAL 1000
+	#define DELAY_VAL 10000
 
 //pin defs
 	//right motor PA3 
-	#define TIM5_PIN 3
+	#define TIM3_PIN 1
 	
 	//left motor PB9
 	#define TIM4_PIN 9
