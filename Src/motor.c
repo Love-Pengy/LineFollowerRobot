@@ -11,7 +11,6 @@
 
 void initMotorClocks(void){
    //init GPIO A and B 
-   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 	 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 }
 
@@ -48,7 +47,7 @@ void initMotorTimers(void){
 	//upcounting
 	TIM4->CR1 &= ~TIM_CR1_DIR;
 	//enable capture/compare register
-	TIM4->CCER |= TIM_CCER_CC4E;
+	TIM4->CCER |= TIM_CCER_CC4E | TIM_CCER_CC3E;
 	TIM4->EGR |= TIM_EGR_UG;
 	//clear interrupt flag
 	TIM4->SR &= ~TIM_SR_UIF;
@@ -74,7 +73,7 @@ void initMotorTimers(void){
 	//upcounting
 	TIM3->CR1 &= ~TIM_CR1_DIR;
 	//enable capture/compare register
-	TIM3->CCER |= TIM_CCER_CC4E;
+	TIM3->CCER |= TIM_CCER_CC4E | TIM_CCER_CC3E | TIM_CCER_CC2E | TIM_CCER_CC1E;
 	TIM3->EGR |= TIM_EGR_UG;
 	//clear interrupt flag
 	TIM3->SR &= ~TIM_SR_UIF;
@@ -115,14 +114,3 @@ void setRightPWM(float pwm){
 	}
 }
 
-void pulseLeftMotor(void){
-	GPIOB->ODR |= 1<<RIGHT_MOTOR_PIN;
-	delayMs(DELAY_VAL);
-	GPIOB->ODR &= ~(1<<RIGHT_MOTOR_PIN);
-}
-
-void pulseRightMotor(void){
-	GPIOB->ODR |= 1<<LEFT_MOTOR_PIN;
-	delayMs(DELAY_VAL);
-	GPIOB->ODR &= ~(1<<LEFT_MOTOR_PIN);
-}
