@@ -40,6 +40,7 @@ void initMotorTimers(void){
 	TIM4->PSC = 63;
 	TIM4->ARR = MAX_COUNT;
 	TIM4->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
+	TIM4->CCMR1 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2; //pwm mode 1
 	//enable preload
 	TIM4->CCMR2 |= TIM_CCMR2_OC4PE;
 	//auto preload
@@ -52,7 +53,7 @@ void initMotorTimers(void){
 	//clear interrupt flag
 	TIM4->SR &= ~TIM_SR_UIF;
 	
-	TIM4->DIER |= TIM_DIER_UIE;
+	TIM4->DIER |= TIM_DIER_UIE| TIM_DIER_CC1IE| TIM_DIER_CC2IE| TIM_DIER_CC3IE| TIM_DIER_CC4IE;
 	//enable the counter
 	TIM4->CR1 = TIM_CR1_CEN;
 	//default pwm value

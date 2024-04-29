@@ -39,6 +39,17 @@ void initSensors(void){
 	//set value to high 
 	GPIOC->ODR |= (0x1 << RIGHT_SENSOR_PIN);
 	
+		//===============================
+	
+	// MIDDLE SENSOR PART >>>>>>>>>>>>
+	
+	//set to output 
+	GPIOC->MODER &= ~(0x3 << (2*MIDDLE_SENSOR_PIN));
+	GPIOC->MODER |= (0x1 << (2*MIDDLE_SENSOR_PIN));
+	
+	//set value to high 
+	GPIOC->ODR |= (0x1 << MIDDLE_SENSOR_PIN);
+	
 	//sanity check 
 	timeCounter = 0;
 	
@@ -56,6 +67,11 @@ void chargeSensorRight(void){
 	GPIOC->MODER &= ~(0x3 << (2*RIGHT_SENSOR_PIN));
 	GPIOC->MODER |= (0x1 << (2*RIGHT_SENSOR_PIN));
 	GPIOC->ODR |= (0x1 << RIGHT_SENSOR_PIN);
+}
+void chargeSensorMiddle(void){
+	GPIOC->MODER &= ~(0x3 << (2*MIDDLE_SENSOR_PIN));
+	GPIOC->MODER |= (0x1 << (2*MIDDLE_SENSOR_PIN));
+	GPIOC->ODR |= (0x1 << MIDDLE_SENSOR_PIN);
 }
 
 /*
@@ -110,4 +126,23 @@ int pulseRightSensor(void){
 	return(1);
 }
 
+int pulseMiddleSensor(void){
+	timeCounter = 0;
+	
+	chargeSensorMiddle();
+	
+	//set to input
+	GPIOC->MODER &= ~(0x3 << (2*MIDDLE_SENSOR_PIN));
+	GPIOC->MODER |= (0x0 << (2*MIDDLE_SENSOR_PIN));
+	
+	while(GPIOC->IDR & (0x1 << MIDDLE_SENSOR_PIN)){
+		timeCounter++;
+	}
+	
+	if(timeCounter > SENSOR_PULSE_THRESHOLD_MIDDLE){
+		return(0);
+	}
+	
+	return(1);
+}
 

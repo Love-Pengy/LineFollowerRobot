@@ -4,5 +4,6 @@
 void initSensors(void);
 int pulseLeftSensor(void);
 int pulseRightSensor(void);
+int pulseMiddleSensor(void);
 
 #endif

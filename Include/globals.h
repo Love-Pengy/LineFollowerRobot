@@ -7,8 +7,9 @@
 	//TIM2 = delay timer 
 
 	//this must be calibrated 
-	#define SENSOR_PULSE_THRESHOLD_RIGHT 100
-	#define SENSOR_PULSE_THRESHOLD_LEFT 100
+	#define SENSOR_PULSE_THRESHOLD_RIGHT 500
+	#define SENSOR_PULSE_THRESHOLD_LEFT 500
+		#define SENSOR_PULSE_THRESHOLD_MIDDLE 500
 	//delay between motor pulses
 	#define DELAY_VAL 1000
 
@@ -27,4 +28,6 @@
 	//right sensor pin PC8 
 	#define RIGHT_SENSOR_PIN 8
 	
+	//middle sensor pin PC9 
+	#define MIDDLE_SENSOR_PIN 9
 #endif
