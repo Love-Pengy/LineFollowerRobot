@@ -6,6 +6,8 @@
 #include "../Lib/OLED/I2C.h"
 
 void initOled(void){
+	//SETS CLOCK TO 80 MHZ
+	System_Clock_Init();
 	I2C_GPIO_init();
 	I2C_Initialization(I2C1);
 	ssd1306_Init();

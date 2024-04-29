@@ -4,7 +4,7 @@
 #include "../Include/sensor.h"
 #include "../Include/delay.h"
 #include "../Include/globals.h"
-
+#include "../Include/oled.h"
 volatile int rightSensorVal;
 volatile int leftSensorVal;
 volatile int middleSensorVal;
@@ -13,8 +13,12 @@ int main(void){
   
 	initMotors();
 	initSensors();
+	//initOled();
+	
 	
 	while(1){
+		
+		//0 is black 1 is white
 		leftSensorVal = pulseLeftSensor();
 		rightSensorVal = pulseRightSensor();	
 		middleSensorVal = pulseMiddleSensor();
@@ -23,38 +27,45 @@ int main(void){
 		if(!leftSensorVal && rightSensorVal){
 			setLeftPWM(0);
 			setRightPWM(.5);
+			//updateOled("0     1");
 			delayMs(10);
 		}
 		//if black on right
 		if(leftSensorVal && !rightSensorVal){
 			setLeftPWM(.5);
 			setRightPWM(0);
+			//updateOled("1     0");
 			delayMs(10);
 		}
 		//if both white go forward
 		if((!middleSensorVal && rightSensorVal && leftSensorVal)||(!middleSensorVal && !rightSensorVal && !leftSensorVal)){
 			setLeftPWM(.5);
 			setRightPWM(.5);
+			//updateOled("0     0");
 			delayMs(10);
 		}
 		if((middleSensorVal && rightSensorVal && !leftSensorVal)){
 			setLeftPWM(0);
 			setRightPWM(.5);
+			//updateOled("0     1");
 			delayMs(10);
 		}
 		if((middleSensorVal && !rightSensorVal && leftSensorVal)){
 			setLeftPWM(0.5);
 			setRightPWM(0);
+			//updateOled("1     0");
 			delayMs(10);
 		}
 		if((!middleSensorVal && !rightSensorVal && leftSensorVal)){
 			setLeftPWM(0.5);
 			setRightPWM(0.5);
+			//updateOled("1     0");
 			delayMs(10);
 		}
 		if((!middleSensorVal && rightSensorVal && !leftSensorVal)){
 			setLeftPWM(0.5);
 			setRightPWM(0.5);
+			//updateOled("0     1");
 			delayMs(10);
 		}
 	}

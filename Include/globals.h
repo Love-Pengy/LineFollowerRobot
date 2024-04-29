@@ -14,11 +14,11 @@
 	#define DELAY_VAL 1000
 
 //pin defs
-	//right motor PA3 
+	//right motor PB1 
 	#define TIM3_PIN 1
 	
-	//left motor PB9
-	#define TIM4_PIN 9
+	//left motor PB7
+	#define TIM4_PIN 7
 	
 	//these sensor pins are in places to try to make it easier for wiring they can be changed
 	
@@ -28,6 +28,6 @@
 	//right sensor pin PC8 
 	#define RIGHT_SENSOR_PIN 8
 	
-	//middle sensor pin PC9 
-	#define MIDDLE_SENSOR_PIN 9
+	//middle sensor pin PC11 
+	#define MIDDLE_SENSOR_PIN 11
 #endif
