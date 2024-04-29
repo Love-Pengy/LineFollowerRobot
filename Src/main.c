@@ -22,19 +22,40 @@ int main(void){
 		//if black on left
 		if(!leftSensorVal && rightSensorVal){
 			setLeftPWM(0);
-			setRightPWM(.4);
-			delayMs(25);
+			setRightPWM(.5);
+			delayMs(10);
 		}
 		//if black on right
 		if(leftSensorVal && !rightSensorVal){
-			setLeftPWM(.4);
+			setLeftPWM(.5);
 			setRightPWM(0);
-			delayMs(25);
+			delayMs(10);
 		}
 		//if both white go forward
 		if((!middleSensorVal && rightSensorVal && leftSensorVal)||(!middleSensorVal && !rightSensorVal && !leftSensorVal)){
-			setLeftPWM(.4);
-			setRightPWM(.4);
+			setLeftPWM(.5);
+			setRightPWM(.5);
+			delayMs(10);
+		}
+		if((middleSensorVal && rightSensorVal && !leftSensorVal)){
+			setLeftPWM(0);
+			setRightPWM(.5);
+			delayMs(10);
+		}
+		if((middleSensorVal && !rightSensorVal && leftSensorVal)){
+			setLeftPWM(0.5);
+			setRightPWM(0);
+			delayMs(10);
+		}
+		if((!middleSensorVal && !rightSensorVal && leftSensorVal)){
+			setLeftPWM(0.5);
+			setRightPWM(0.5);
+			delayMs(10);
+		}
+		if((!middleSensorVal && rightSensorVal && !leftSensorVal)){
+			setLeftPWM(0.5);
+			setRightPWM(0.5);
+			delayMs(10);
 		}
 	}
 }
