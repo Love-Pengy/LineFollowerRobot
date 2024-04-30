@@ -12,8 +12,12 @@
 	#define SENSOR_PULSE_THRESHOLD_MIDDLE 500
 	
 	//delay between motor pulses
-	#define DELAY_VAL 10
-
+	#define DELAY_VAL 0
+	
+	//speed value for motors
+	#define SPEED_VAL .35
+	
+	
 //pin defs
 	//PIN PB1 uses Timer 3 Channel 4: Front RIGHT MOTOR
 	#define FTIM3_PIN 1

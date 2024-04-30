@@ -68,6 +68,7 @@ void chargeSensorRight(void){
 	GPIOC->MODER |= (0x1 << (2*RIGHT_SENSOR_PIN));
 	GPIOC->ODR |= (0x1 << RIGHT_SENSOR_PIN);
 }
+
 void chargeSensorMiddle(void){
 	GPIOC->MODER &= ~(0x3 << (2*MIDDLE_SENSOR_PIN));
 	GPIOC->MODER |= (0x1 << (2*MIDDLE_SENSOR_PIN));
