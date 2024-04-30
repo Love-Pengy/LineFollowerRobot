@@ -14,11 +14,17 @@
 	#define DELAY_VAL 1000
 
 //pin defs
-	//right motor PB1 
-	#define TIM3_PIN 1
+	//front right motor PB1 
+	#define FTIM3_PIN 1
 	
-	//left motor PB7
-	#define TIM4_PIN 7
+	//back right motor PB0
+	#define BTIM3_PIN 0
+	
+	//front left motor PB7
+	#define FTIM4_PIN 7
+	
+	//back right motor PB6 
+	#define BTIM4_PIN 6
 	
 	//these sensor pins are in places to try to make it easier for wiring they can be changed
 	

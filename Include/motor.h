@@ -2,8 +2,11 @@
 #define MOTOR_H
 
 void initMotors(void);
-void setLeftPWM(float);
-void setRightPWM(float);
+void setLeftPWMForward(float);
+void setRightPWMForward(float);
+
+void setLeftPWMBackward(float);
+void setRightPWMBackward(float);
 
 void pulseLeftMotor(void);
 void pulseRightMotor(void);

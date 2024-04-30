@@ -16,21 +16,37 @@ void initMotorClocks(void){
 
 void initMotorPins(void){
 	
-	//PIN PB7 Front LEFT MOTOR
-	GPIOB->MODER &= ~(0x03 << (2*TIM4_PIN));
-	GPIOB->MODER |= 0x02 << (2*TIM4_PIN);
-	GPIOB->AFR[0] |= 0x2<<(4*TIM4_PIN); //I believe its four because we shift 4 for moving over one and the offset is 9-8
-	GPIOB->OSPEEDR |= 0x03<<(2*TIM4_PIN);
-	GPIOB->OTYPER &= ~(1<<TIM4_PIN);
-	GPIOB->PUPDR &= ~(0x03<<(2*TIM4_PIN));
+	//PIN PB7 uses Timer 4 Channel 2: Front LEFT MOTOR
+	GPIOB->MODER &= ~(0x03 << (2*FTIM4_PIN));
+	GPIOB->MODER |= 0x02 << (2*FTIM4_PIN);
+	GPIOB->AFR[0] |= 0x2<<(4*FTIM4_PIN); //I believe its four because we shift 4 for moving over one and the offset is 9-8
+	GPIOB->OSPEEDR |= 0x03<<(2*FTIM4_PIN);
+	GPIOB->OTYPER &= ~(1<<FTIM4_PIN);
+	GPIOB->PUPDR &= ~(0x03<<(2*FTIM4_PIN));
 	
-	//PIN PB1 Front RIGHT MOTOR
-	GPIOB->MODER &= ~(0x03 << (2*TIM3_PIN));
-	GPIOB->MODER |= 0x02 << (2*TIM3_PIN);
-	GPIOB->AFR[0] |= 0x2<<(4*TIM3_PIN);
-	GPIOB->OSPEEDR |= 0x03<<(2*TIM3_PIN);
-	GPIOB->OTYPER &= ~(1<<TIM3_PIN);
-	GPIOB->PUPDR &= ~(0x03<<(2*TIM3_PIN));
+	//PIN PB6 uses Timer 4 Channel 1: Back LEFT MOTOR
+	GPIOB->MODER &= ~(0x03 << (2*BTIM4_PIN));
+	GPIOB->MODER |= 0x02 << (2*BTIM4_PIN);
+	GPIOB->AFR[0] |= 0x2<<(4*BTIM4_PIN); //I believe its four because we shift 4 for moving over one and the offset is 9-8
+	GPIOB->OSPEEDR |= 0x03<<(2*BTIM4_PIN);
+	GPIOB->OTYPER &= ~(1<<BTIM4_PIN);
+	GPIOB->PUPDR &= ~(0x03<<(2*BTIM4_PIN));
+	
+	//PIN PB1 uses Timer 3 Channel 4: Front RIGHT MOTOR
+	GPIOB->MODER &= ~(0x03 << (2*FTIM3_PIN));
+	GPIOB->MODER |= 0x02 << (2*FTIM3_PIN);
+	GPIOB->AFR[0] |= 0x2<<(4*FTIM3_PIN);
+	GPIOB->OSPEEDR |= 0x03<<(2*FTIM3_PIN);
+	GPIOB->OTYPER &= ~(1<<FTIM3_PIN);
+	GPIOB->PUPDR &= ~(0x03<<(2*FTIM3_PIN));
+	
+	//PIN PB0 uses Timer 3 Channel 3: Back RIGHT MOTOR
+	GPIOB->MODER &= ~(0x03 << (2*BTIM3_PIN));
+	GPIOB->MODER |= 0x02 << (2*BTIM3_PIN);
+	GPIOB->AFR[0] |= 0x2<<(4*BTIM3_PIN);
+	GPIOB->OSPEEDR |= 0x03<<(2*BTIM3_PIN);
+	GPIOB->OTYPER &= ~(1<<BTIM3_PIN);
+	GPIOB->PUPDR &= ~(0x03<<(2*BTIM3_PIN));
 }
 
 void initMotorTimers(void){
@@ -41,14 +57,14 @@ void initMotorTimers(void){
 	TIM4->ARR = MAX_COUNT;
 	//enable preload
 	TIM4->CCMR1 &= ~TIM_CCMR1_OC2M;
-	TIM4->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2PE; //pwm mode 1
+	TIM4->CCMR1 |= TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2PE | TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1PE; //pwm mode 1
 	//auto preload
 	TIM4->CR1 |= TIM_CR1_ARPE; 
 	//upcounting
 	TIM4->CR1 &= ~TIM_CR1_DIR;
 	//enable capture/compare register
-	TIM4->CCER |= TIM_CCER_CC2E ;	
-	TIM4->CCER &= ~ TIM_CCER_CC2P;
+	TIM4->CCER |= TIM_CCER_CC2E | TIM_CCER_CC1E ;	
+	TIM4->CCER &= ~ (TIM_CCER_CC2P |TIM_CCER_CC1P);
 	TIM4->EGR |= TIM_EGR_UG;
 	//clear interrupt flag
 	TIM4->SR &= ~TIM_SR_UIF;
@@ -57,7 +73,7 @@ void initMotorTimers(void){
 	TIM4->CR1 = TIM_CR1_CEN;
 	//default pwm value
 	TIM4->CCR2 = 0; 
-
+	TIM4->CCR1 = 0; 
   // ============  
     
   //TIM3 part >>>>>>>>>>>>>
@@ -67,14 +83,14 @@ void initMotorTimers(void){
 	TIM3->ARR = MAX_COUNT;
 	//enable preload
 	TIM3->CCMR2 &= ~TIM_CCMR2_OC4M;
-	TIM3->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4PE; //pwm mode 1
+	TIM3->CCMR2 |= TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4PE | TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3PE; //pwm mode 1
 	//auto preload
 	TIM3->CR1 |= TIM_CR1_ARPE; 
 	//upcounting
 	TIM3->CR1 &= ~TIM_CR1_DIR;
 	//enable capture/compare register
-	TIM3->CCER |= TIM_CCER_CC4E ;	
-	TIM3->CCER &= ~ TIM_CCER_CC4P;
+	TIM3->CCER |= TIM_CCER_CC4E | TIM_CCER_CC3E;	
+	TIM3->CCER &= ~ (TIM_CCER_CC4P | TIM_CCER_CC3P);
 	TIM3->EGR |= TIM_EGR_UG;
 	//clear interrupt flag
 	TIM3->SR &= ~TIM_SR_UIF;
@@ -83,6 +99,7 @@ void initMotorTimers(void){
 	TIM3->CR1 = TIM_CR1_CEN;
 	//default pwm value
 	TIM3->CCR4 = 0; 
+	TIM3->CCR3 = 0; 
   // ==============
 }
 
@@ -92,25 +109,51 @@ void initMotors(void){
   initMotorTimers();
 }
 
-void setLeftPWM(float pwm){
-	
+void setLeftPWMForward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM4->CCR2 = 38;
+		TIM4->CCR1 = 0;
 	}
 	else{
 		TIM4->CCR2 = val;
+		TIM4->CCR1 = 0;
 	}
 }
 
-void setRightPWM(float pwm){
-	
+void setLeftPWMBackward(float pwm){
+	int val = (int)(MAX_COUNT * pwm);
+	if((val < 38) && (val != 0)){
+		TIM4->CCR1 = 38;
+		TIM4->CCR2 = 0;
+	}
+	else{
+		TIM4->CCR1 = val;
+		TIM4->CCR2 = 0;
+	}
+}
+
+void setRightPWMForward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM3->CCR4 = 38;
+		TIM3->CCR3 = 0;
 	}
 	else{
 		TIM3->CCR4 = val;
+		TIM3->CCR3 = 0;
+	}
+}
+
+void setRightPWMBackward(float pwm){
+	int val = (int)(MAX_COUNT * pwm);
+	if((val < 38) && (val != 0)){
+		TIM3->CCR3 = 38;
+		TIM3->CCR4 = 0;
+	}
+	else{
+		TIM3->CCR3 = val;
+		TIM3->CCR4 = 0;
 	}
 }
 
