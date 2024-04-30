@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Apr 29 23:02:17 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Apr 30 02:52:51 2024
 <BR><P>
 <H3>Maximum Stack Usage =         12 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -643,6 +643,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSensors
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[76]"></a>initMotorClocks</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, motor.o(i.initMotorClocks))
@@ -679,16 +680,17 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
 </UL>
 
-<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 322 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = main &rArr; initSensors &rArr; delayMs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setRightPWMBackward
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setLeftPWMBackward
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setRightPWMForward
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setLeftPWMForward
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulseRightSensor
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulseMiddleSensor
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pulseLeftSensor
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initSensors
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initMotors
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayMs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
@@ -717,11 +719,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7e]"></a>setLeftPWMBackward</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, motor.o(i.setLeftPWMBackward))
+<P><STRONG><a name="[7d]"></a>setLeftPWMForward</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, motor.o(i.setLeftPWMForward))
 <BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7d]"></a>setRightPWMBackward</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, motor.o(i.setRightPWMBackward))
+<P><STRONG><a name="[7e]"></a>setRightPWMForward</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, motor.o(i.setRightPWMForward))
 <BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 

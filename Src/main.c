@@ -22,59 +22,53 @@ int main(void){
 		leftSensorVal = pulseLeftSensor();
 		rightSensorVal = pulseRightSensor();	
 		middleSensorVal = pulseMiddleSensor();
+
 		
-		//setRightPWMForward(0.5);
-		//setLeftPWMForward(0.5);
-		
-		setRightPWMBackward(0.5);
-		setLeftPWMBackward(0.5);
-		
-		/*
 		//if black on left
 		if(!leftSensorVal && rightSensorVal){
-			setLeftPWM(0);
-			setRightPWM(.6);
+			setLeftPWMForward(0);
+			setRightPWMForward(0.5);
 			//updateOled("0     1");
 			delayMs(10);
 		}
 		//if black on right
 		if(leftSensorVal && !rightSensorVal){
-			setLeftPWM(.6);
-			setRightPWM(0);
+			setLeftPWMForward(.5);
+			setRightPWMForward(0);
 			//updateOled("1     0");
 			delayMs(10);
 		}
 		//if both white go forward
 		if((!middleSensorVal && rightSensorVal && leftSensorVal)||(!middleSensorVal && !rightSensorVal && !leftSensorVal)){
-			setLeftPWM(.6);
-			setRightPWM(.6);
+			setLeftPWMForward(.5);
+			setRightPWMForward(.5);
 			//updateOled("0     0");
 			delayMs(10);
 		}
 		if((middleSensorVal && rightSensorVal && !leftSensorVal)){
-			setLeftPWM(0);
-			setRightPWM(.6);
+			setLeftPWMForward(0);
+			setRightPWMForward(.5);
 			//updateOled("0     1");
 			delayMs(10);
 		}
 		if((middleSensorVal && !rightSensorVal && leftSensorVal)){
-			setLeftPWM(0.6);
-			setRightPWM(0);
+			setLeftPWMForward(0.5);
+			setRightPWMForward(0);
 			//updateOled("1     0");
 			delayMs(10);
 		}
 		if((!middleSensorVal && !rightSensorVal && leftSensorVal)){
-			setLeftPWM(0.6);
-			setRightPWM(0.6);
+			setLeftPWMForward(0.5);
+			setRightPWMForward(0.5);
 			//updateOled("1     0");
 			delayMs(10);
 		}
 		if((!middleSensorVal && rightSensorVal && !leftSensorVal)){
-			setLeftPWM(0.6);
-			setRightPWM(0.6);
+			setLeftPWMForward(0.5);
+			setRightPWMForward(0.5);
 			//updateOled("0     1");
 			delayMs(10);
-		}*/
+		}
 	}
 }
 

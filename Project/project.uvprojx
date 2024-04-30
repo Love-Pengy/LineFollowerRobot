@@ -417,6 +417,11 @@
               <FileType>1</FileType>
               <FilePath>..\Src\oled.c</FilePath>
             </File>
+            <File>
+              <FileName>speed.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\speed.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -456,6 +461,11 @@
               <FileName>oled.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Include\oled.h</FilePath>
+            </File>
+            <File>
+              <FileName>speed.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Include\speed.h</FilePath>
             </File>
           </Files>
         </Group>

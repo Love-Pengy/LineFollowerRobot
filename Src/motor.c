@@ -24,6 +24,7 @@ void initMotorPins(void){
 	GPIOB->OTYPER &= ~(1<<FTIM4_PIN);
 	GPIOB->PUPDR &= ~(0x03<<(2*FTIM4_PIN));
 	
+	
 	//PIN PB6 uses Timer 4 Channel 1: Back LEFT MOTOR
 	GPIOB->MODER &= ~(0x03 << (2*BTIM4_PIN));
 	GPIOB->MODER |= 0x02 << (2*BTIM4_PIN);
@@ -31,6 +32,7 @@ void initMotorPins(void){
 	GPIOB->OSPEEDR |= 0x03<<(2*BTIM4_PIN);
 	GPIOB->OTYPER &= ~(1<<BTIM4_PIN);
 	GPIOB->PUPDR &= ~(0x03<<(2*BTIM4_PIN));
+	
 	
 	//PIN PB1 uses Timer 3 Channel 4: Front RIGHT MOTOR
 	GPIOB->MODER &= ~(0x03 << (2*FTIM3_PIN));
@@ -113,11 +115,9 @@ void setLeftPWMForward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM4->CCR2 = 38;
-		TIM4->CCR1 = 0;
 	}
 	else{
 		TIM4->CCR2 = val;
-		TIM4->CCR1 = 0;
 	}
 }
 
@@ -125,11 +125,9 @@ void setLeftPWMBackward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM4->CCR1 = 38;
-		TIM4->CCR2 = 0;
 	}
 	else{
 		TIM4->CCR1 = val;
-		TIM4->CCR2 = 0;
 	}
 }
 
@@ -137,11 +135,9 @@ void setRightPWMForward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM3->CCR4 = 38;
-		TIM3->CCR3 = 0;
 	}
 	else{
 		TIM3->CCR4 = val;
-		TIM3->CCR3 = 0;
 	}
 }
 
@@ -149,11 +145,10 @@ void setRightPWMBackward(float pwm){
 	int val = (int)(MAX_COUNT * pwm);
 	if((val < 38) && (val != 0)){
 		TIM3->CCR3 = 38;
-		TIM3->CCR4 = 0;
+		
 	}
 	else{
 		TIM3->CCR3 = val;
-		TIM3->CCR4 = 0;
 	}
 }
 

@@ -6,6 +6,7 @@
 ".\objects\delay.o"
 ".\objects\sensor.o"
 ".\objects\oled.o"
+".\objects\speed.o"
 ".\objects\i2c.o"
 ".\objects\ssd1306.o"
 ".\objects\ssd1306_fonts.o"
