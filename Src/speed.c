@@ -11,7 +11,7 @@ void switchinit(void){
 
 System_Clock_Init(); // Switch System Clock = 80 MHz
 
- // Enable the clock to GPIO Port C
+// Enable the clock to GPIO Port C
 RCC->AHB2ENR |= RCC_AHB2ENR_GPIOCEN;  
 
 
@@ -25,15 +25,15 @@ GPIOC->PUPDR |= 0x0;
 	
 }
 
-	int enableswitch(int *eligChange){
-		while(GPIOC->IDR & GPIO_IDR_IDR_13){
-			if(*eligChange){
-				setLeftPWMBackward(0.5);
-				*eligChange = 0;
-			}
+int enableswitch(int *eligChange){
+	while(GPIOC->IDR & GPIO_IDR_IDR_13){
+		if(*eligChange){
+			setLeftPWMBackward(0.5);
+			*eligChange = 0;
 		}
-		setLeftPWMBackward(0);
-		*eligChange = 1;
 	}
+	setLeftPWMBackward(0);
+	*eligChange = 1;
+}
 
 

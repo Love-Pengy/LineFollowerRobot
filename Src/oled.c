@@ -13,7 +13,6 @@ void initOled(void){
 	ssd1306_Init();
 }
 
-
 void updateOled(char* input){
 	ssd1306_Fill(White);
 	ssd1306_SetCursor(2,0);

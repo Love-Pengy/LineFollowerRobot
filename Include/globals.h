@@ -9,9 +9,10 @@
 	//this must be calibrated 
 	#define SENSOR_PULSE_THRESHOLD_RIGHT 500
 	#define SENSOR_PULSE_THRESHOLD_LEFT 500
-		#define SENSOR_PULSE_THRESHOLD_MIDDLE 500
+	#define SENSOR_PULSE_THRESHOLD_MIDDLE 500
+	
 	//delay between motor pulses
-	#define DELAY_VAL 1000
+	#define DELAY_VAL 10
 
 //pin defs
 	//PIN PB1 uses Timer 3 Channel 4: Front RIGHT MOTOR
